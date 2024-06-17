@@ -1,0 +1,35 @@
+###tymczasowe do dodawania zdjecia
+POST http://localhost:3000/api/images HTTP/1.1
+Content-Type: multipart/form-data; boundary=----FormBoundary
+
+------FormBoundary
+Content-Disposition: form-data; name="file"; filename="input.jpg"
+Content-Type: image/jpeg
+
+< ./input.jpg
+
+------FormBoundary
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+nazwa_albumu
+------FormBoundary
+
+###GET - dane o zdjęciu, potrzebne do jego obróbki (width,height)
+GET http://localhost:3000/api/filters/metadata/40921  HTTP/1.1
+
+
+###PATCH -  aktualizacja danych zdjęcia o nowy tag
+PATCH http://localhost:3000/api/filters  HTTP/1.1
+content-type: application/json
+
+{
+ "id": "40921",
+ "filter": {
+    "name": "grayscale"
+    }
+}
+
+### GET - pobierz zdjecie z filtrem po id
+GET http://localhost:3000/api/getfile/40921/grayscale HTTP/1.1
+

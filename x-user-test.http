@@ -1,0 +1,60 @@
+###POST - rejestracja usera
+POST  http://localhost:3000/api/user/register HTTP/1.1
+Content-Type: application/json
+
+{    
+   "name": "igor",
+   "lastName": "misztal",
+   "email":"igor@onet.pl",
+   "password":"zaq1"
+}
+
+###GET - user potwierdza rejestrację konta z użyciem tokena
+GET http://localhost:3000/api/user/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTE5NzYsIm5hbWUiOiJpZ29yIiwibGFzdE5hbWUiOiJtaXN6dGFsIiwiZW1haWwiOiJpZ29yQG9uZXQucGwiLCJjb25maXJtZWQiOmZhbHNlLCJwYXNzd29yZCI6IiQyYSQxMCRHR2lpenU4cDM3dFAxYlZGWHBQRkZlNWtoMkljV1l0VjlwMktocHhIVWhXYUZrZzdoLi5vSyIsImlhdCI6MTY4NTM0NzM4OSwiZXhwIjoxNjg1MzUwOTg5fQ.T7xF_fXfhx9m7FQz8PLgtRjBSco9eW-8wfdGoQGptA4 HTTP/1.1
+###POST - logowanie z odesłaniem tokena po zalogowaniu - od tej pory każde żądanie zawiera token
+POST http://localhost:3000/api/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email":"bob@onet.pl",
+  "password":"zaq1"
+}
+
+###GET - wylogowywanie usera
+GET http://localhost:3000/api/user/logout HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTE5NzYsIm5hbWUiOiJpZ29yIiwibGFzdE5hbWUiOiJtaXN6dGFsIiwiZW1haWwiOiJpZ29yQG9uZXQucGwiLCJjb25maXJtZWQiOnRydWUsInBhc3N3b3JkIjoiJDJhJDEwJEdHaWl6dThwMzd0UDFiVkZYcFBGRmU1a2gySWNXWXRWOXAyS2hweEhVaFdhRmtnN2guLm9LIiwiaWF0IjoxNjg1MzQ3NDE4LCJleHAiOjE2ODUzNTEwMTh9.ZqllmbWTR-bK1xTQnHfRY8GU8abyKvK5RHMH52C9_bE
+
+###POST - json all users - funkcja pomocnicza dla testów
+GET http://localhost:3000/api/user HTTP/1.1
+
+###GET - pobranie danych usera do wyświetlenia w profilu
+GET http://localhost:3000/api/profile HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxMSwibmFtZSI6IkJvYiIsImxhc3ROYW1lIjoiTWFybGV5IiwiZW1haWwiOiJib2JAb25ldC5wbCIsImNvbmZpcm1lZCI6dHJ1ZSwicGFzc3dvcmQiOiIkMmEkMTAkLk9nWHZObTFOMnBvMUdrbFdxTUpYT0RpVDlVQTdBcmQxL2J4VGo1cEk3NFZqcDg3U2VvNy4iLCJpYXQiOjE2ODY0ODQwNjAsImV4cCI6MTY4NjQ4NzY2MH0.LagftC0GgP5K5l45Bq8FJum467LyqDdrit04JFb1t6A
+
+###PATCH - aktualizacja danych usera w jego profilu
+PATCH http://localhost:3000/api/profile HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxMSwibmFtZSI6ImJvYiIsImxhc3ROYW1lIjoibWFybGV5IiwiZW1haWwiOiJib2JAb25ldC5wbCIsImNvbmZpcm1lZCI6dHJ1ZSwicGFzc3dvcmQiOiIkMmEkMTAkLk9nWHZObTFOMnBvMUdrbFdxTUpYT0RpVDlVQTdBcmQxL2J4VGo1cEk3NFZqcDg3U2VvNy4iLCJpYXQiOjE2ODUyOTAxOTMsImV4cCI6MTY4NTI5Mzc5M30.KyGADv-nPKcsCWlYMhKFHQkQqHeuL5wdrugNs8BmixU
+Content-Type: application/json
+
+{
+  "name":"travis",
+  "lastName":"scott"
+}
+
+###POST - wysłanie zdjęcia profilowego
+POST http://localhost:3000/api/profile HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxMSwibmFtZSI6IkJvYiIsImxhc3ROYW1lIjoiTWFybGV5IiwiZW1haWwiOiJib2JAb25ldC5wbCIsImNvbmZpcm1lZCI6dHJ1ZSwicGFzc3dvcmQiOiIkMmEkMTAkLk9nWHZObTFOMnBvMUdrbFdxTUpYT0RpVDlVQTdBcmQxL2J4VGo1cEk3NFZqcDg3U2VvNy4iLCJpYXQiOjE2ODY3NjQ2MDgsImV4cCI6MTY4Njc2ODIwOH0.lTZEf_fxcRr3Yf8oFrYAeSsq1l6RPCIv-M_FNUEuZko
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="shrek.jpg"
+Content-Type: image/jpeg
+
+< ./shrek.jpg
+
+------FormBoundary1234
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+1211
+------FormBoundary1234
