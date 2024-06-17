@@ -18,7 +18,7 @@ const allFunctionsObj = {
         }
         users.push(newUser)
         let token = await createToken(newUser)
-        let activateAccountInfo = "Skopiuj poniższy link do przeglądarki w celu potwierdzenia konta <p style='font-size: x-small'> http://localhost:3000/api/user/confirm/" + token + "</p>Uwaga: link jest ważny przez godzinę"
+        let activateAccountInfo = "Skopiuj poniższy link do przeglądarki w celu potwierdzenia konta <p style='font-size: x-small'> http://localhost:4000/api/user/confirm/" + token + "</p>Uwaga: link jest ważny przez godzinę"
         res.end(JSON.stringify(activateAccountInfo, null, 5))
     },
     confirm: async (token, res) => {
